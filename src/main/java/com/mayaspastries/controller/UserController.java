@@ -32,6 +32,7 @@ public class UserController {
 		} else {
 			userGet = serviceUser.getUser(user, passwod);
 		}
+		
 		if (userGet != null) {
 
 			Integer userId = userGet.getIduser();

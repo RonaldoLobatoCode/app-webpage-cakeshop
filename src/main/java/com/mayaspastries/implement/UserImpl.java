@@ -14,15 +14,14 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class UserImpl implements UserService{
+public class UserImpl implements UserService {
 
 	private UserRepository repoUser;
 
 	@Override
 	public User getUserAndPassword(String user, String password) {
 		// TODO Auto-generated method stub
-        return repoUser.findByUsernameAndHashedPassword(user, password);
-
+		return repoUser.findByUsernameAndHashedPassword(user, password);
 	}
 
 	@Override
@@ -34,20 +33,20 @@ public class UserImpl implements UserService{
 		}
 		return null;
 	}
-	
-	public static String getSHA256Hash(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = md.digest(input.getBytes());
 
-            StringBuilder hexString = new StringBuilder();
-            for (byte hashByte : hashBytes) {
-                hexString.append(String.format("%02x", hashByte));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	public static String getSHA256Hash(String input) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hashBytes = md.digest(input.getBytes());
+
+			StringBuilder hexString = new StringBuilder();
+			for (byte hashByte : hashBytes) {
+				hexString.append(String.format("%02x", hashByte));
+			}
+			return hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

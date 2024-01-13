@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+  <link rel="stylesheet" href="css/flaticon.css">
+  <link rel="stylesheet" href="css/icomoon.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="icon" href="images/title.png">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/wstp.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/footer.css">
+
+
+  <title>Maya's Pastries</title>
+
+<body>
+
+  <!-- Cabecera -->
+  <header>
+    <nav class="nav-section">
+      <section class="contenedor-nav nav">
+        <div class="logo">
+          <img src="images/logo.jpg" alt="Mi king" class="nav-img">
+        </div>
+        <div class="enlaces-header">
+          <a href="/home">HOME</a>
+          <a href="nosotros.html">ABOUT</a>
+          <a href="destinos.html">DESTINOS</a>
+          <a href="/letter">LETTER</a>
+          <a href="/login">REGISTRARSE</a>
+        </div>
+        <div class="hamburguer">
+          <i class="fas fa-bars"></i>
+        </div>
+      </section>
+    </nav>
+  </header>
+  <br><br><br>
+
+  <div class="main-wrapper" id="letter">
+    <div class="container">
+      <div class="row justify-content-center" style="margin-top: 120px !important;"> 
+        <div class="col-md-7 text-center heading-section ftco-animate">
+            <span class="subheading">Sweeten your world with us</span>
+        </div>
+      </div>
+      <br><br><br><br><br><br>
+      <form th:action="@{/letter}">
+        <div class="input-container" id="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" name="searchWord" id="search-input" th:value="${searchWord}" placeholder="Search product">
+        </div>
+      </form>
+
+      <!-- Aqui va lo otro -->
+
+      <div class="container-card">
+        <div th:if="${listProduct.isEmpty()}">
+          <p style="text-align: center; background-color: #ce4949; padding: 10px; font-size: 18px;
+          margin: 10px; border-radius: 5px; color: white; font-weight: bold;">No products found</p>
+        </div>
+        <div class="card" th:each="product : ${listProduct}" data-product-id="${product.idproduct}">
+          <figure>
+            <img th:src="'/uploads/' + ${product.image}" class="lazy-load"  th:data-src="'/uploads/' + ${product.image}">
+          </figure>
+          <div class="contenido-card">
+            <h3 th:text="${product.name}"></h3>
+            <p>$<span th:text="${product.price}"></span></p>
+            <a th:href="'/detail/' + ${product.idproduct}">See More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="pagination">
+      <div id="buttonsContainer">
+        <button id="prevBtn">Prev</button>
+        <button id="nextBtn">Next</button>
+      </div>
+      <span id="currentPage"></span>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <div class="whatsapp-button">
+    <a href="https://api.whatsapp.com/send?phone=NUMERO_DE_WHATSAPP&text=Hola,%20en%20qué%20podemos%20ayudarte..."
+      target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <p class="message">Hello. How can we help you?</p>
+  </div>
+
+  <footer>
+    <div class="container-footer">
+      <div class="wrapper">
+        <div class="footer-widget">
+          <a href="#">
+            <img src="images/logo.jpg" class="logo" style="width: 40%;" />
+          </a>
+          <p class="desc">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
+            deserunt magni recusandae ut! Natus?
+          </p>
+          <ul class="socials">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Quick Link</h6>
+          <ul class="links">
+            <li><a href="#">home</a></li>
+            <li><a href="#">about</a></li>
+            <li><a href="#">service</a></li>
+            <li><a href="#">testimonial</a></li>
+            <li><a href="#">contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Services</h6>
+          <ul class="links">
+            <li><a href="#">web design</a></li>
+            <li><a href="#">web development</a></li>
+            <li><a href="#">seo optimization</a></li>
+            <li><a href="#">blog writing</a></li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Help &amp; Support</h6>
+          <ul class="links">
+            <li><a href="#">support center</a></li>
+            <li><a href="#">live chat</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">terms &amp; conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright-wrapper">
+        <p>
+          &copy; 2023 Maya's Pastries. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/letter.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="https://kit.fontawesome.com/c15b744a04.js" crossorigin="anonymous"></script>
+  <script src="js/products.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="js/wstp.js"></script>
+  <script src="main.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const lazyImages = document.querySelectorAll(".lazy-load");
+
+      function lazyLoad() {
+          lazyImages.forEach((img) => {
+              if (img.getBoundingClientRect().top < window.innerHeight) {
+                  img.src = img.getAttribute("data-src");
+                  img.classList.remove("lazy-load");
+              }
+          });
+      }
+
+      window.addEventListener("scroll", lazyLoad);
+      window.addEventListener("resize", lazyLoad);
+      window.addEventListener("load", lazyLoad);
+  });
+
+</script>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${product.name}"></title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/aos.css">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  <link rel="stylesheet" href="/css/detail.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <!-- <link th:if="${product.image}" th:href="@{'/uploads/' + ${product.image}}" rel="icon" type="image/png"> -->
+  <link rel="stylesheet" href="/css/wstp.css">
+
+  <!-- <meta property="og:url" th:content="@{https://1a47-190-236-203-212.ngrok-free.app/}">
+  </meta>
+  <meta property="og:type" content="website">
+  </meta>
+  <meta property="og:name" th:content="${product.name}">
+  </meta>
+  <meta property="og:description" th:content="${product.description}">
+  </meta>  -->
+  <!-- <meta property="og:image" content="https://84dc-190-236-203-212.ngrok-free.app/uploads/5e1765dd-ca4b-4165-ab44-b393ccad9088_flan.jpg"></meta> -->
+
+
+
+  <meta property="og:image" th:content="@{'/uploads/' + ${product.image}}" />
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="nav-section">
+      <section class="contenedor-nav nav">
+        <div class="logo">
+          <img src="/images/logo.jpg" alt="Mi king" class="nav-img" loading="lazy">
+        </div>
+        <div class="enlaces-header">
+          <a href="/home">HOME</a>
+          <a href="#about">ABOUT</a>
+          <a href="destinos.html">DESTINOS</a>
+          <a href="/letter">LETTER</a>
+          <a href="/login">REGISTRARSE</a>
+        </div>
+        <div class="hamburguer">
+          <i class="fas fa-bars"></i>
+        </div>
+      </section>
+    </nav>
+  </header>
+
+  <div class="card-wrapper">
+    <div class="card-css">
+      <!-- card left -->
+      <div class="product-imgs">
+        <div class="img-display">
+          <div class="img-showcase">
+            <img th:src="'/uploads/' + ${product.image}" alt="shoe image" loading="lazy">
+            <!-- <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyi8gunMS6ZrS-ch_4-0PU9qhrNorwhRdxoVB65z3JOy7cODDDIXF25PWB189RpbC-l5I&usqp=CAU"
+              alt="shoe image" class="img-detailt">
+            <img
+              src="https://content-cocina.lecturas.com/medio/2023/03/23/el-mejor-pastel-de-chocolate_24bd9cda_1200x1200.jpg"
+              alt="shoe image" class="img-detailt">
+            <img src="https://aprende.com/wp-content/uploads/2020/11/pastel-de-zanahoria.png" alt="shoe image"
+              class="img-detailt"> -->
+          </div>
+        </div>
+        <!-- <div class="img-select">
+          <div class="img-item">
+            <a href="#" data-id="1">
+              <img th:src="'/uploads/' + ${product.image}" alt="shoe image" style="width: 130px; height: 150px;">
+            </a>
+          </div>
+          <div class="img-item">
+            <a href="#" data-id="2">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyi8gunMS6ZrS-ch_4-0PU9qhrNorwhRdxoVB65z3JOy7cODDDIXF25PWB189RpbC-l5I&usqp=CAU"
+                alt="shoe image" style="width: 130px; height: 150px;">
+            </a>
+          </div>
+          <div class="img-item">
+            <a href="#" data-id="3">
+              <img
+                src="https://content-cocina.lecturas.com/medio/2023/03/23/el-mejor-pastel-de-chocolate_24bd9cda_1200x1200.jpg"
+                alt="shoe image" style="width: 130px; height: 150px;">
+            </a>
+          </div>
+          <div class="img-item">
+            <a href="#" data-id="4">
+              <img src="https://aprende.com/wp-content/uploads/2020/11/pastel-de-zanahoria.png" alt="shoe image"
+                style="width: 130px; height: 150px;">
+            </a>
+          </div>
+        </div> -->
+      </div>
+      <!-- card right -->
+      <div class="product-content">
+        <a href="/home" class="product-link">HOME /</a>
+        <a href="/letter" class="product-link">LETTER</a>
+        <h2 class="product-title" th:text="${product.name}"></h2>
+        <p th:text="${product.description}"></p>
+
+        <div class="product-price">
+          <p class="new-price" th:text="'Price: $' + ${product.price}" style="font-size: 25px;"></p>
+        </div>
+
+        <div class="purchase-info">
+          <button class="btn btn-success" id="buy-on-whatsapp" th:data-product-name-wstp="${product.name}"
+            data-phone-number="942950656">
+            Comprar por WhatsApp <i class="fab fa-whatsapp"></i>
+          </button>
+        </div>
+
+
+        <div class="share-facebook-container">
+          <p class="share-facebook-text">Compartir en :</p>
+          <button class="btn btn-primary" id="share-on-facebook" data-product-name="${product.name}"
+            style="border: none; background: none; padding: 0;">
+            <i class="fab fa-facebook" title="Facebook"></i>
+          </button>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- menu section starts -->
+  <section class="ftco-section" id="menu" style="margin-top: 150px;">
+    <div class="container-fluid px-4">
+      <div>
+        <h4 style="text-align: center; font-size: 35px; font-family: 'Helvetica', sans-serif; color: #333;">Related
+          Products</h4>
+      </div>
+      <div class="container-card-index">
+        <div class="card__container">
+          <th:block th:each="product : ${randomProductsDetail}" loading="lazy">
+            <article class="card__article">
+              <img th:src="'/uploads/' + ${product.image}" alt="image" class="card__img" loading="lazy">
+              <div class="card__data">
+                <span class="card__description">Maya's Pastries</span>
+                <h2 class="card__title" th:text="${product.name}"></h2>
+                <a th:href="'/detail/' + ${product.idproduct}" class="card__button">Order now</a>
+              </div>
+            </article>
+          </th:block>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="whatsapp-button">
+    <a href="https://api.whatsapp.com/send?phone=942950656&text=Hola,%20en%20qué%20podemos%20ayudarte..."
+      target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <p class="message">Hello. How can we help you?</p>
+  </div>
+
+  <footer>
+    <div class="container-footer">
+      <div class="wrapper">
+        <div class="footer-widget">
+          <a href="#">
+            <img src="/images/logo.jpg" class="logo" style="width: 40%;" loading="lazy" />
+          </a>
+          <p class="desc">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
+            deserunt magni recusandae ut! Natus?
+          </p>
+          <ul class="socials">
+            <li>
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Quick Link</h6>
+          <ul class="links">
+            <li><a href="#">home</a></li>
+            <li><a href="#">about</a></li>
+            <li><a href="#">service</a></li>
+            <li><a href="#">testimonial</a></li>
+            <li><a href="#">contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Services</h6>
+          <ul class="links">
+            <li><a href="#">web design</a></li>
+            <li><a href="#">web development</a></li>
+            <li><a href="#">seo optimization</a></li>
+            <li><a href="#">blog writing</a></li>
+          </ul>
+        </div>
+        <div class="footer-widget">
+          <h6>Help &amp; Support</h6>
+          <ul class="links">
+            <li><a href="#">support center</a></li>
+            <li><a href="#">live chat</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">terms &amp; conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright-wrapper">
+        <p>
+          &copy; 2023 Maya's Pastries. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/wstp.js"></script>
+  <script src="/js/detail.js"></script>
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var whatsappButton = document.getElementById("buy-on-whatsapp");
+
+    if (whatsappButton) {
+      whatsappButton.addEventListener("click", function () {
+        alert("Click");
+        var productNameWstp = this.getAttribute("data-product-name-wstp");
+        alert("Valor de : " + productNameWstp);
+
+        var phoneNumber = this.getAttribute("data-phone-number");
+
+        // Construye el mensaje de WhatsApp
+        var whatsappMessage = "¡Hola! Estoy interesado en el producto: " + productNameWstp;
+
+        // URL de WhatsApp con el número de teléfono y el mensaje personalizado
+        var whatsappURL = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + encodeURIComponent(whatsappMessage);
+
+        // Abre el enlace en una nueva ventana o pestaña
+        window.open(whatsappURL, "_blank");
+      });
+    }
+  });
+
+</script>
+
+<script>
+  document.getElementById("share-on-facebook").addEventListener("click", function () {
+    var productName = this.getAttribute("data-product-name");
+
+    var facebookShareURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href) +
+      "&quote=" + encodeURIComponent("¡Mira este producto: " + productName);
+    window.open(facebookShareURL, "_blank");
+  });
+
+
+</script>
+
+<script>
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1,
+  };
+
+  const lazyLoad = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const lazyImage = entry.target;
+        lazyImage.src = lazyImage.dataset.src;
+        lazyImage.classList.remove('lazy');
+        observer.unobserve(lazyImage);
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(lazyLoad, options);
+
+  const lazyImages = document.querySelectorAll('.lazy');
+  lazyImages.forEach(image => {
+    observer.observe(image);
+  });
+
+</script>

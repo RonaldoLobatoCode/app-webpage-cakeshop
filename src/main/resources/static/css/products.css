@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+/* Pagination */
+
+#pagination {
+   text-align: center;
+   margin-top: 10px;
+}
+
+#buttonsContainer {
+   display: inline-block;
+}
+
+#prevBtn,
+#nextBtn {
+   padding: 8px 39px;
+   background-color: #f1f1f1;
+   border: none;
+   color: #333;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   font-size: 15px;
+   margin: 0 10px;
+}
+
+#prevBtn:hover,
+#nextBtn:hover {
+   background-color: #ddd;
+}
+
+#currentPage {
+   display: block;
+   margin-top: 10px;
+   font-size: 15px;
+   color: #666;
+}
+
+
+/*Search Product*/
+
+.input-container {
+   display: flex;
+   align-items: center;
+   width: 400px;
+   border: 2px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+   background-color: white;
+   -webkit-transition: width 0.4s ease-in-out;
+   transition: width 0.4s ease-in-out;
+}
+
+.input-container i {
+   padding: 0 10px;
+   color: #ccc;
+}
+
+.input-container input[type="text"] {
+   border: none;
+   width: 100%;
+   padding: 12px 0;
+   outline: none;
+}
+
+.main-title {
+   font-size: 80px;
+   color: #c8a97e;
+   font-weight: normal;
+   margin-bottom: 0;
+   line-height: 1;
+   font-family: "Poppins", cursive;
+}
+
+
+/* Cards */
+.container-card {
+   width: 100%;
+   display: flex;
+   max-width: 2200px;
+   margin: auto;
+   flex-wrap: wrap;
+
+}
+
+/* Establece el margen izquierdo en 0 para la primera columna de elementos */
+.container-card .card:nth-child(4n + 1) {
+   margin-left: 0;
+}
+
+
+.card {
+   flex: 0 0 calc(25% - 40px);
+   /* Tamaño específico para 4 tarjetas por fila en 1900px */
+   margin: 20px;
+   border-radius: 6px;
+   overflow: hidden;
+   background: #fff;
+   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+   transition: all 400ms ease-out;
+   /* cursor: pointer; */
+}
+
+/* .card:hover {
+   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+   transform: translateY(-3%);
+} */
+
+.card img {
+   width: 100%;
+   height: 310px;
+}
+
+.card .contenido-card {
+   padding: 15px;
+   text-align: center;
+}
+
+.card .contenido-card h3 {
+   margin-bottom: 15px;
+   font-size: 20px;
+   color: #7a7a7a;
+   font-family: 'Montserrat', sans-serif;
+}
+
+.card .contenido-card span {
+
+   color: #c8a97e;
+   font-size: 24px;
+   margin-bottom: 5px;
+}
+
+.card .contenido-card p {
+
+   color: #c8a97e;
+   font-size: 24px;
+   margin-bottom: 5px;
+}
+
+.card .contenido-card a {
+   display: inline-block;
+   padding: 10px 20px;
+   margin-top: 10px;
+   text-decoration: none;
+   color: #7a7a7a;
+   border: 1px solid #7a7a7a;
+   border-radius: 4px;
+   transition: all 400ms ease;
+   margin-bottom: 5px;
+}
+
+.card .contenido-card a:hover {
+   background: #c8a97e;
+   color: #fff;
+}
+
+
+
+/* Agregar un estilo para 3 filas en 1200px */
+@media (max-width: 1400px) {
+   .container-card .card {
+      flex-basis: 32%;
+      /* Establece el ancho alrededor del 32% para mostrar 3 tarjetas por fila */
+      margin: 1%;
+      /* Agrega un pequeño margen entre las tarjetas */
+   }
+
+   .card:nth-child(3n+1) {
+      margin-left: 0;
+      /* Elimina el margen izquierdo en la primera tarjeta de cada fila */
+   }
+
+   .card:nth-child(3n) {
+      margin-right: 0;
+      /* Elimina el margen derecho en la última tarjeta de cada fila */
+   }
+}
+
+/* Agregar un estilo para 2 filas entre 750px y 1200px */
+@media (max-width: 850px) {
+   .container-card .card {
+      flex: 0 0 calc(48% - 2%);
+      margin: 2%;
+   }
+
+   .card:nth-child(2n+1) {
+      margin-left: 0;
+   }
+
+   .card:nth-child(2n) {
+      margin-right: 0;
+   }
+}
+
+
+@media (max-width: 500px) {
+   .container-card .card {
+      flex: 0 0 calc(100% - 20px);
+      margin: 15px 10px;
+   }
+}
+
+@media (max-width: 800px) {
+   .input-container {
+      width: 100%;
+
+   }
+}
+
+@media (max-width: 750px) {
+   .subheading {
+      padding: 10px 15px !important;
+      font-size: 65px !important;
+      width: 100% !important;
+
+   }
+}
+
+
+/* Para pantallas entre 751px y 900px */
+@media (min-width: 751px) and (max-width: 1000px) {
+   .subheading {
+      width: 100% !important;
+      max-width: 3500px !important;
+      font-size: 18d0px !important;
+   }
+}

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="/jslist/jquery.min.js"></script>
+	<script type="text/javascript" src="/jslist/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/jslist/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jslist/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/jslist/bootstrapValidator.js"></script>
+	<script type="text/javascript" src="/jslist/global.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<link rel="stylesheet" href="/css/bootstrap.css" />
+	<link rel="stylesheet" href="/css/dataTables.bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/bootstrapValidator.css" />
+	<link rel="stylesheet" href="/css/maintenance.css">
+	<link rel="icon" href="/images/title.png">
+
+	<title>Category Maintenance</title>
+</head>
+
+<body>
+	<div class="container" style="width: 75%;">
+		<div class="container-img"
+			style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+			<img alt="logo" src="/images/logo.jpg" style="width: 180px;">
+			<h3 style="text-align: center; margin-left: 50px; font-size: 30px; font-family: sans-serif;">Category
+				Maintenance</h3>
+		</div>
+		<br>
+
+		<br>
+		<div class="col-md-23">
+			<div class="row" style="height: 70px">
+				<form th:action="@{/filter/category}">
+					<div class="col-md-2">
+						<div class="input-container-maintenance" id="search-container">
+							<i class="fas fa-search"></i>
+							<input type="text" name="searchWord" id="search-input" th:value="${searchWord}"
+								placeholder="Search category..">
+						</div>
+					</div>
+				</form>
+				<div class="col-md-2">
+					<button type="button" data-toggle='modal' data-target="#id_div_modal_registra"
+						class='btn btn-primary' style="width: 200px; margin-left: 120px;">ADD CATEGORY</button>
+				</div>
+				<div class="button-container">
+					<a href="/maintenance" class="maintenance-link product-link">PRODUCT MAINTENANCE</a>
+					<a href="/maintenance/category" class="maintenance-link">CATEGORY MAINTENANCE</a>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<table id="id_table" class="table table-striped table-bordered">
+							<thead>
+								<tr style="text-align: center;">
+									<th style="width: 4%; text-align: center;">#ID</th>
+									<th style="width: 25%; text-align: center;">#Category Name</th>
+									<th style="width: 6%; text-align: center;">#Edit</th>
+									<th style="width: 6%; text-align: center;">#Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="c : ${listCategory}">
+									<td style="text-align: center; vertical-align: middle; font-size: 15px;"
+										th:text="${c.idcategory}">Producto A</td>
+									<td scope="row" style="text-align: center; vertical-align: middle;"
+										th:text="${c.name}">001</td>
+									<td style="text-align: center; vertical-align: middle;">
+										<a th:href="@{'/search/category' + ${c.idcategory}}" data-toggle="modal"
+											data-target="#id_div_modal_actualiza" data-category-id="${c.idcategory}"
+											th:onclick="'loadProductData(' + ${c.idcategory} + ');'">
+											<img src="/images/edit.png" alt="Edit"
+												style="max-width: 100%; max-height: 100%; width: 45px; height: 45px;">
+										</a>
+									</td>
+									<td>
+										<a th:href="@{'/delete/category/' + ${c.idcategory}}"
+											th:onclick="'confirmDeletion(' + ${c.idcategory} + ')'"
+											style="display: flex; justify-content: center; align-items: center; height: 100%;">
+											<img src="/images/delete.png" alt="Eliminar" title="Eliminar"
+												style="max-width: 100%; max-height: 100%; width: 40px;">
+										</a>
+									</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+						<div id="pagination">
+							<div id="buttonsContainer">
+								<button id="prevBtn">Prev</button>
+								<button id="nextBtn">Next</button>
+							</div>
+							<span id="currentPage"></span>
+						</div>
+						<br><br><br><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="id_div_modal_registra">s
+			<div class="modal-dialog" style="width: 60%">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 35px 50px; background-color: #fdd2dd;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 style="background-color: #fdd2dd;">
+							<span class="glyphicon glyphicon-ok-sign" style="background-color: #fdd2dd;;"></span>
+							Register Category
+						</h4>
+					</div>
+					<div class="modal-body" style="padding: 20px 10px;">
+						<form action="/mayas/register/category" th:object="${category}" method="post"
+							class="form-horizontal" enctype="multipart/form-data">
+							<div class="panel-group" id="steps">
+								<div class="panel panel-default">
+									<div id="stepOne" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<input type="hidden" name="idcategory" id="categoryIdEdit"
+												th:field="*{idcategory}" class="form-control"
+												style="border: 1px solid #ccc;" readonly />
+											<div class="form-group">
+												<label class="col-lg-3 control-label">Category Name</label>
+												<div class="col-lg-3">
+													<input type="text" class="form-control" id="name" th:field="*{name}"
+														placeholder="Enter the name of the category"
+														style="border: 1px solid #ccc;">
+													<div id="nameError" class="error-message" style="color: red"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-lg-9 col-lg-offset-3">
+													<button type="submit" class="btn btn-primary" id="id_btn_registra"
+														onclick="registerCategory()">ADD CATEGORY</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="id_div_modal_actualiza">
+			<div class="modal-dialog" style="width: 60%">
+				<div class="modal-header" style="padding: 35px 50px; background-color: #fdd2dd;">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 style="background-color: #fdd2dd;">
+						<span class="glyphicon glyphicon-ok-sign" style="background-color: #fdd2dd;;"></span> Update
+						Category
+					</h4>
+				</div>
+				<div class="modal-body" style="padding: 20px 10px; background-color: #fff;">
+					<form class="form-horizontal" id="updateForm">
+						<div class="panel-group" id="steps">
+							<div class="panel panel-default">
+								<div id="stepOne" class="panel-collapse collapse in">
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-lg-3 control-label">Category Name</label>
+											<div class="col-lg-3">
+												<input type="text" class="form-control" id="nameEdit" name="name"
+													placeholder="Enter the name of the category"
+													style="border: 1px solid #ccc;">
+												<div id="nameErrorEdit" class="error-message" style="color: red"></div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-9 col-lg-offset-3">
+												<button type="button" id="updateButton"
+													class="btn btn-primary">UPDATE</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/maintenance.js"></script>
+	<script src="/js/category.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+
+</html>
+<script>
+	function confirmDeletion(idcategory) {
+		fetch(`/delete/category/${idcategory}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.canDelete) {
+					alert("Category removed");
+					window.location.href = 'category';
+				} else {
+					alert("It is not possible to delete this category since there are products associated with it");
+					window.location.href = 'category';
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+	}
+
+
+</script>
+
+<script>
+	function loadProductData(categoryId) {
+		$.ajax({
+			type: 'GET',
+			url: '/search/category/' + categoryId,
+			success: function (data) {
+				console.log("Datos recibidos:", data);
+
+				$('#id_div_modal_actualiza').on('shown.bs.modal', function () {
+					$('#categoryIdEdit').val(data.idcategory);
+					$('#nameEdit').val(data.name);
+					$('#nameEdit').on('input', function () {
+						data.name = $(this).val();
+					});
+				});
+			},
+			error: function () {
+				console.log("Error al obtener los datos");
+			}
+		});
+	}
+
+</script>
+
+<script>
+	$(document).ready(function () {
+		$("#updateButton").on("click", function () {
+			console.log("Botón ACTUALIZAR hizo clic");
+
+			var isValid = true;
+
+			var nameEdit = document.getElementById('nameEdit');
+
+			var nameErrorEdit = document.getElementById('nameErrorEdit');
+
+			nameErrorEdit.textContent = '';
+
+		
+			if (nameEdit.value.trim() === "") {
+				nameErrorEdit.textContent = 'This field is required';
+				isValid = false;
+				event.preventDefault();
+			} else if (nameEdit.value.length > 100) {
+				nameErrorEdit.textContent = 'Name should be 100 characters or less';
+				isValid = false;
+				event.preventDefault();
+			} else if (!isNaN(nameEdit.value)) {
+				nameErrorEdit.textContent = 'Name should contain only letters';
+				isValid = false;
+				console.log(nameErrorEdit);
+				event.preventDefault();
+			} else {
+				nameErrorEdit.textContent = '';
+			}
+
+			if (isValid) {
+				var formData = new FormData();
+
+				formData.append("idcategory", $("#categoryIdEdit").val());
+				formData.append("name", $("#nameEdit").val());
+
+
+				console.log("Datos recopilados:", formData);
+
+				$.ajax({
+					type: 'PUT',
+					url: '/category',
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: function (response) {
+						if (response === "success") {
+							console.log("Respuesta del servidor: Producto actualizado con éxito");
+							alert("Producto actualizado con éxito");
+							$("#id_div_modal_actualiza").modal("hide");
+							location.reload();
+							console.log("Desde consola datos actualizados");
+						} else {
+							alert("Error al actualizar el producto: " + response);
+							console.log("Error al actualizar:", response);
+						}
+					},
+					error: function (error) {
+						alert("Error al actualizar el producto: " + error.responseText);
+						console.log("Error al actualizar:", error.responseText);
+					}
+				});
+
+			}
+		});
+	});
+
+</script>

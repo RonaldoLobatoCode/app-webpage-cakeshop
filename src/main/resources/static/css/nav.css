@@ -1,0 +1,104 @@
+.contenedor-nav {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.nav-section {
+    width: 100%;
+    height: 90px;
+    background: #fff;
+    border-bottom: 1px solid transparent;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .2);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    transition: ease-in-out 0.5s;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    align-items: center;
+    padding: 0 40px;
+    font-size: 16px;
+}
+
+.nav .logo {
+    height: 90px;
+}
+
+.nav .logo .nav-img {
+    height: 100%;
+    vertical-align: top;
+}
+    
+.enlaces-header {
+    font-weight: 400;
+    transition: ease-in-out 0.5s;
+}
+
+.nav .enlaces-header a {
+    color: #232936;
+    text-decoration:#929394;
+    margin-left: 20px;
+}
+
+.nav .enlaces-header a:hover{
+    color: #c8a97e;
+}
+
+.hamburguer {
+    width: 80px;
+    height: 80px;
+    display: none;
+    text-align: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: color 0.5s ease-in;
+}
+
+.hamburguer>i {
+    font-size: 25px;
+    line-height: 80px;
+}
+
+
+
+@media screen and (max-width:600px) {
+
+   .nav {
+       padding: 0 10px;
+   }
+
+    .enlaces-header {
+       position: fixed;
+       background: #c8a97e;
+       top: 0;
+       right: 0;
+       width: 100%;
+       height: 100vh;
+       display: flex;
+       align-items: center;
+       flex-direction: column;
+       justify-content: space-evenly;
+       clip-path: circle(0.0% at 100% 0);
+   }
+
+   .nav .menudos {
+       -webkit-clip-path: circle(150% at 100% 0);
+       clip-path: circle(150% at 100% 0);
+   }
+
+   .nav .enlaces-header a {
+       color: #fff;
+   }
+
+   .hamburguer {
+       display: block;
+   } 
+
+}

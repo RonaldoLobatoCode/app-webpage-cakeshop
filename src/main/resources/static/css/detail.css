@@ -1,0 +1,573 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+.card-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+.img-display {
+  overflow: hidden;
+}
+
+.img-showcase {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+  transition: all 0.5s ease;
+}
+
+.img-showcase img {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (min-width: 270px) and (max-width: 450px) {
+  .img-showcase {
+    height: 320px;
+  }
+
+}
+
+.img-showcase .img-detail {
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.img-select {
+  display: flex;
+}
+
+.img-item {
+  margin: 0.3rem;
+}
+
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3),
+.img-item:nth-child(4) {
+  margin-right: 0;
+}
+
+.img-item:hover {
+  opacity: 0.8;
+}
+
+.content {
+  padding: 2rem 1rem;
+}
+
+.product-title {
+  font-size: 2rem;
+  text-transform: capitalize;
+  position: relative;
+  color: #333;
+  margin: 1rem 0;
+}
+
+.product-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  list-style: none;
+  font-weight: 400;
+  font-size: 17px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0 0.3rem;
+  transition: all 0.5s ease;
+  color: #525661;
+  list-style-type: none;
+}
+
+.product-link:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.product-rating {
+  color: #ffc107;
+}
+
+.product-rating span {
+  font-weight: 600;
+  color: #252525;
+}
+
+.product-price {
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #f79664;
+}
+
+.last-price span {
+  color: #f64749;
+  text-decoration: line-through;
+}
+
+
+#buy-on-whatsapp {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 100px 0;
+  /* Agrega margen exterior */
+  padding: 4px 20px;
+  /* Agrega relleno interno */
+  text-align: center;
+  /* Centra el contenido del botón */
+  font-size: 17px;
+  /* Tamaño de fuente */
+  background-color: #25d366;
+  border-radius: 50px;
+}
+
+#buy-on-whatsapp i {
+  font-size: 35px;
+  /* Tamaño de fuente del icono (ajusta según tus preferencias) */
+  margin-left: 13px;
+}
+
+#buy-on-whatsapp:hover {
+  background-color: #28a745;
+  /* Cambia el color de fondo cuando se pasa el ratón por encima */
+  color: white;
+  /* Cambia el color del texto cuando se pasa el ratón por encima */
+  cursor: pointer;
+  /* Cambia el cursor a una mano para indicar que es un enlace */
+}
+
+
+.share-facebook-container {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+
+}
+
+.share-facebook-text {
+  margin-right: 10px;
+  /* Espacio entre el texto y el botón de Facebook */
+}
+
+
+#share-on-facebook i {
+  font-size: 34px;
+  /* Tamaño del icono de Facebook (ajusta según tus necesidades) */
+  color: #0866ff;
+  margin-top: -15px;
+}
+
+
+
+@media screen and (min-width: 792px) {
+  .card-css {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.5rem;
+  }
+
+  .card-wrapper {
+    height: 550px;
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .product-imgs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .product-content {
+    padding-top: 0;
+  }
+}
+
+
+@media screen and (max-width: 991px) {
+
+  .card-wrapper {
+    margin-top: 110px;
+  }
+
+  .product-content {
+    padding: 20px;
+  }
+}
+
+
+/* Article */
+
+
+
+
+
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(82, 60%, 28%);
+  --title-color: hsl(0, 0%, 15%);
+  --text-color: hsl(0, 0%, 35%);
+  --body-color: hsl(0, 0%, 95%);
+  --container-color: hsl(0, 0%, 100%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --small-font-size: .813rem;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1120px) {
+  :root {
+    --h2-font-size: 1.5rem;
+    --small-font-size: .875rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+
+/*=============== CARD ===============*/
+.container-card-index {
+  display: grid;
+  place-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 80px;
+  margin-bottom: 140px;
+}
+
+.card__container {
+  display: grid;
+  row-gap: 3.5rem;
+}
+
+.card__article {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__img {
+  width: 328px;
+
+}
+
+.card__data {
+  width: 280px;
+  background-color: var(--container-color);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+  border-radius: 1rem;
+  position: absolute;
+  bottom: -9rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  opacity: 0;
+  transition: opacity 1s 1s;
+}
+
+.card__description {
+  display: block;
+  font-size: var(--small-font-size);
+  margin-bottom: .25rem;
+  font-family: var(--body-font);
+
+}
+
+.card__title {
+  font-size: var(--h2-font-size);
+  font-weight: 500;
+  color: var(--title-color);
+  margin-bottom: .75rem;
+  font-family: var(--body-font);
+
+}
+
+.card__button {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--first-color);
+}
+
+.card__button:hover {
+  text-decoration: underline;
+}
+
+/* Naming animations in hover */
+.card__article:hover .card__data {
+  animation: show-data 1s forwards;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.card__article:hover {
+  animation: remove-overflow 2s forwards;
+}
+
+.card__article:not(:hover) {
+  animation: show-overflow 2s forwards;
+}
+
+.card__article:not(:hover) .card__data {
+  animation: remove-data 1s forwards;
+}
+
+#text-center {
+  text-align: center;
+  margin-top: 80px;
+}
+
+#text-center a {
+  text-align: center;
+  border: 1px solid #a57a7a;
+  padding: 18px;
+  font-size: 17px;
+  text-decoration: none;
+  color: #a57a7a;
+
+}
+
+#text-center a:hover {
+  background-color: #c8a97e !important;
+  color: #fff;
+}
+
+/* Card animation */
+@keyframes show-data {
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(-7rem);
+  }
+}
+
+@keyframes remove-overflow {
+  to {
+    overflow: initial;
+  }
+}
+
+@keyframes remove-data {
+  0% {
+    transform: translateY(-7rem);
+  }
+
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(.5rem);
+  }
+}
+
+@keyframes show-overflow {
+  0% {
+    overflow: initial;
+    pointer-events: none;
+  }
+
+  50% {
+    overflow: hidden;
+  }
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+  .container-card-index {
+    margin-inline: 1rem;
+  }
+
+  .card__img {
+    width: 100%;
+    height: 500px;
+
+  }
+
+  .card__data {
+    width: 316px;
+    padding-inline: 2.5rem;
+  }
+}
+
+
+
+/* For medium devices */
+@media screen and (min-width: 768px) {
+  .card__container {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+  }
+
+  .card__img {
+    width: 100%;
+    height: 500px;
+
+  }
+
+  .card__data {
+    width: 316px;
+    padding-inline: 2.5rem;
+  }
+}
+
+.element-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-element {
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-family: var(--body-font);
+  font-weight: 400;
+}
+
+.box-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px;
+  max-width: 1400px;
+  padding: 10px;
+
+}
+
+.elements {
+  flex: 1;
+  text-align: center;
+  margin: 12px;
+}
+
+.icono-elements svg {
+  width: 50px;
+  height: auto;
+  color: #c8a97e;
+}
+
+.subtitulo-elements {
+  font-size: 22px;
+  margin-top: 15px;
+  margin-bottom: 12px;
+  font-weight: 800;
+  color: #c8a97e;
+}
+
+.parrafo-elements {
+  font-size: 17px;
+  color: #947a8f;
+}
+
+@media (max-width: 1199px) {
+  .box-elements {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .elements {
+    max-width: 600px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .title-element {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-family: var(--body-font);
+    font-weight: 400;
+  }
+}
+
+
+
+/* For large devices */
+/* Para dispositivos grandes (1400px o más) */
+@media screen and (min-width: 1400px) {
+  .card__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card__img {
+    width: 100%;
+    height: 400px;
+  }
+
+  .card__data {
+    width: 286px;
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Cambiar a 4 columnas entre 1110px y 1399px */
+@media screen and (min-width: 1110px) and (max-width: 1399px) {
+  .card__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card__img {
+    width: 100%;
+    height: 300px;
+    /* Mantener la altura constante en 500px */
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1088px) {
+  .card__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card__img {
+    width: 100%;
+    height: 300px;
+    /* Mantener la altura constante en 500px */
+  }
+}
+
+/* For small devices */
+@media screen and (max-width: 767px) {
+  .card__img {
+    width: 100%;
+    height: 300px;
+    /* Mantener la altura constante en 500px */
+  }
+
+  .card__data {
+    width: 100%;
+    /* Asegurarse de que el ancho se ajuste automáticamente al 100% del contenedor */
+    padding-inline: 1rem;
+    /* Ajustar el relleno horizontal según tus necesidades */
+  }
+}

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script type="text/javascript" src="jslist/jquery.min.js"></script>
+	<script type="text/javascript" src="jslist/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="jslist/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="jslist/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jslist/bootstrapValidator.js"></script>
+	<script type="text/javascript" src="jslist/global.js"></script>
+
+	<link rel="icon" href="images/title.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrapValidator.css" />
+	<link rel="stylesheet" href="css/maintenance.css">
+
+	<title>Product Maintenance</title>
+</head>
+
+<body>
+
+	<div class="container" style="width: 80%;">
+		<div class="container-img"
+			style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+			<img alt="logo" src="images/logo.jpg" style="width: 180px;">
+			<h3 style="text-align: center; margin-left: 50px; font-size: 30px; font-family: sans-serif;">Product
+				Maintenance</h3>
+		</div>
+		<br>
+
+		<br>
+		<div class="col-md-23">
+			<div class="row" style="height: 70px">
+				<form th:action="@{/filter}">
+					<div class="col-md-2">
+						<div class="input-container-maintenance" id="search-container">
+							<i class="fas fa-search"></i>
+							<input type="text" name="searchWord" id="search-input" th:value="${searchWord}"
+								placeholder="Search product..">
+						</div>
+					</div>
+				</form>
+
+				<div class="col-md-2">
+					<button type="button" data-toggle='modal' data-target="#id_div_modal_registra"
+						class='btn btn-primary' style="width: 150px; margin-left: 120px;">REGISTRAR</button>
+				</div>
+				<div class="button-container">
+					<a href="/maintenance" class="maintenance-link product-link">PRODUCT MAINTENANCE</a>
+					<a href="/maintenance/category" class="maintenance-link">CATEGORY MAINTENANCE</a>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<table id="id_table" class="table table-striped table-bordered">
+							<thead>
+								<tr style="text-align: center;">
+									<th style="width: 4%; text-align: center;">#ID</th>
+									<th style="width: 25%; text-align: center;">#Name Product</th>
+									<th style="width: 25%; text-align: center;">#Description Product</th>
+									<th style="width: 8%; text-align: center;">#Price</th>
+									<th style="width: 12%; text-align: center;">#Category</th>
+									<th style="width: 20%; text-align: center;">#Image</th>
+									<th style="width: 6%; text-align: center;">#Edit</th>
+									<th style="width: 6%; text-align: center;">#Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="p : ${listProduct}">
+									<td scope="row" style="text-align: center; vertical-align: middle;"
+										th:text="${p.idproduct}">001</td>
+									<td style="text-align: center; vertical-align: middle; font-size: 15px;"
+										th:text="${p.name}">Producto A</td>
+									<td style="text-align: center; vertical-align: middle; font-size: 15px;"
+										th:text="${p.description}">Marca A</td>
+									<td style="text-align: center; vertical-align: middle; font-size: 15px;"
+										th:text="${p.price}">Marca A</td>
+									<td style="text-align: center; vertical-align: middle; font-size: 15px;"
+										th:text="${p.objCategory.name}">10</td>
+									<td>
+										<div
+											style="display: flex; justify-content: center; align-items: center; height: 100%;">
+											<img th:src="'/uploads/' + ${p.image}"
+												style="max-width: 100%; max-height: 100%;" width="120" height="130">
+										</div>
+									</td>
+									<td style="text-align: center; vertical-align: middle;">
+										<a th:href="@{'/search/' + ${p.idproduct}}" data-toggle="modal"
+											data-target="#id_div_modal_actualiza" data-product-id="${p.idproduct}"
+											th:onclick="'loadProductData(' + ${p.idproduct} + ');'">
+											<img src="images/edit.png" alt="Edit"
+												style="max-width: 100%; max-height: 100%; width: 45px; height: 45px;">
+										</a>
+									</td>
+									<td style="text-align: center; vertical-align: middle;">
+										<a th:href="@{'/delete/' + ${p.idproduct}}" onclick="return confirmDeletion()"
+											style="display: flex; justify-content: center; align-items: center; height: 100%;">
+											<img src="images/delete.png" alt="Eliminar" title="Eliminar"
+												style="max-width: 100%; max-height: 100%; width: 40px;">
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div id="pagination">
+							<div id="buttonsContainer">
+								<button id="prevBtn">Anterior</button>
+								<button id="nextBtn">Siguiente</button>
+							</div>
+							<span id="currentPage"></span>
+						</div>
+						<br><br><br><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="id_div_modal_registra">s
+			<div class="modal-dialog" style="width: 60%">
+				<div class="modal-content">
+					<div class="modal-header" style="padding: 35px 50px; background-color: #fdd2dd;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 style="background-color: #fdd2dd;">
+							<span class="glyphicon glyphicon-ok-sign" style="background-color: #fdd2dd;;"></span>
+							Register product
+						</h4>
+					</div>
+					<div class="modal-body" style="padding: 20px 10px;">
+						<form action="/mayas/add/product" method="post" class="form-horizontal" th:object="${product}"
+							enctype="multipart/form-data">
+							<div class="panel-group" id="steps">
+								<div class="panel panel-default">
+									<div id="stepOne" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<div class="form-group">
+												<div class="col-lg-3">
+													<input type="hidden" name="employeeId" th:value="${employeeId}" />
+													<input type="hidden" class="form-control" id="employeeId"
+														th:value="${employeeId}" style="border: 1px solid #ccc;">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label">Product Name</label>
+												<div class="col-lg-3">
+													<input type="text" class="form-control" id="name"
+														placeholder="Enter the product name" th:field="*{name}"
+														style="border: 1px solid #ccc;">
+													<div id="nameError" class="error-message" style="color: red"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_deporte">Description
+													name</label>
+												<div class="col-lg-3">
+													<div class="textarea-container">
+														<textarea class="form-control" id="description"
+															placeholder="Enter the product description"
+															th:field="*{description}"
+															style="border: 1px solid #ccc; max-height: 200px; resize: none; height: 80px;"></textarea>
+														<div id="descriptionError" class="error-message"
+															style="color: red"></div>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_maxima">Price</label>
+												<div class="col-lg-3">
+													<input class="form-control" id="price" th:field="*{price}"
+														type="number" step="0.01" min="0.00" max="10000"
+														style="border: 1px solid #ccc;" required />
+
+													<div id="priceError" class="error-message" style="color: red"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label">Category
+													Product</label>
+												<div class="col-lg-3">
+													<select id="category" name="category" th:field="*{idcategory}"
+														class='form-control'>
+														<option value="-1">Select</option>
+														<option th:each="c : ${listCategory}" th:value="${c.idcategory}"
+															th:text="${c.name}"></option>
+													</select>
+													<div id="nameCategory" class="error-message" style="color: red">
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_maxima">Image</label>
+												<div class="col-lg-3">
+													<label class="file-input-container">
+														<svg xmlns="http://www.w3.org/2000/svg" width="26" height="25"
+															fill="currentColor" class="bi bi-cloud-arrow-up"
+															viewBox="0 0 16 16">
+															<path fill-rule="evenodd"
+																d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z" />
+															<path
+																d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+														</svg>
+														<span class="upload-text-register">Upload File</span>
+														<input type="file" name="file" th:text="${product.image}"
+															id="fileInput" onchange="updateFileName()" />
+													</label>
+													<div id="imageError" class="error-message" style="color: red"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-lg-3 control-label" for="id_reg_maxima">View</label>
+												<div class="col-lg-3">
+													<img id="imagePreviewAdd" src="" alt="preview"
+														style="width: 150px; height: 140px;">
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-lg-9 col-lg-offset-3">
+													<button type="submit" class="btn btn-primary" id="id_btn_registra"
+														onclick="registerProduct()">ADD PRODUCT</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="id_div_modal_actualiza">
+			<div class="modal-dialog" style="width: 60%">
+				<div class="modal-header" style="padding: 35px 50px; background-color: #fdd2dd;">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 style="background-color: #fdd2dd;">
+						<span class="glyphicon glyphicon-ok-sign" style="background-color: #fdd2dd;;"></span> Update
+						product
+					</h4>
+				</div>
+				<div class="modal-body" style="padding: 20px 10px; background-color: #fff;">
+					<form class="form-horizontal" id="updateForm" th:object="${product}" enctype="multipart/form-data">
+						<div class="panel-group" id="steps">
+							<div class="panel panel-default">
+								<div id="stepOne" class="panel-collapse collapse in">
+									<div class="panel-body">
+										<div class="form-group">
+											<div class="col-lg-3">
+												<input type="hidden" name="idproduct" id="productIdEdit"
+													class="form-control" style="border: 1px solid #ccc;" readonly />
+												<input type="hidden" name="idemployee" class="form-control"
+													id="employeeIdEdit" style="border: 1px solid #ccc;" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label">Product Name</label>
+											<div class="col-lg-3">
+												<input type="text" class="form-control" id="nameEdit" name="name"
+													placeholder="Enter the product name"
+													style="border: 1px solid #ccc;">
+												<div id="nameErrorEdit" class="error-message" style="color: red"></div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label" for="id_reg_deporte">Description
+												name</label>
+											<div class="col-lg-3">
+												<div class="textarea-container">
+													<textarea class="form-control" id="descriptionEdit"
+														name="description" placeholder="Enter the product description"
+														style="border: 1px solid #ccc; max-height: 200px; resize: none; height: 80px;"></textarea>
+													<div id="descriptionErrorEdit" class="error-message"
+														style="color: red">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label" for="id_reg_maxima">Price</label>
+											<div class="col-lg-3">
+												<input class="form-control" id="priceEdit" name="price" type="number"
+													step="0.01" style="border: 1px solid #ccc;" />
+												<div id="priceErrorEdit" class="error-message" style="color: red"></div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label">Category
+												Product</label>
+											<div class="col-lg-3">
+												<select id="categoryEdit" name="idcategory" class='form-control'
+													th:field="*{idcategory}">
+													<option value="-1">Selected</option>
+													<option th:each="c : ${listCategory}" th:value="${c.idcategory}"
+														th:text="${c.name}"></option>
+												</select>
+												<div id="nameCategoryError" class="error-message" style="color: red">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label" for="id_reg_maxima">Image</label>
+											<div class="col-lg-3">
+												<label class="file-input-container">
+													<svg xmlns="http://www.w3.org/2000/svg" width="26" height="25"
+														fill="currentColor" class="bi bi-cloud-arrow-up"
+														viewBox="0 0 16 16">
+														<path fill-rule="evenodd"
+															d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z" />
+														<path
+															d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+													</svg>
+													<span class="upload-text" id="file-name-display">Upload File</span>
+													<input type="file" name="updatefile" id="updatefile"
+														onchange="updateFileNameUpdate()" />
+												</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-3 control-label" for="id_reg_maxima">View</label>
+											<div class="col-lg-3">
+												<img id="imagePreview" src="" alt="Image Preview"
+													style="width: 150px; height: 140px;">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-lg-9 col-lg-offset-3">
+												<button type="button" id="updateButton"
+													class="btn btn-primary">UPDATE</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/maintenance.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+	</script>
+	<script>
+		$(document).ready(function () {
+			// Manejar el cambio en el campo de entrada de archivo
+			$("#fileInput").on("change", function () {
+				var selectedFile = $(this).prop("files")[0];
+				if (selectedFile) {
+
+					// También puedes mostrar una vista previa de la imagen si es una imagen válida
+					if (selectedFile.type.startsWith("image/")) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$("#imagePreviewAdd").attr("src", e.target.result);
+						};
+						reader.readAsDataURL(selectedFile);
+					} else {
+						// Limpiar la vista previa si el archivo no es una imagen
+						$("#imagePreviewAdd").attr("src", "");
+					}
+				} else {
+					// Limpiar la vista si no se seleccionó ningún archivo
+					$("#imageError").text("");
+					$("#imagePreviewAdd").attr("src", "");
+				}
+			});
+		});
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			// Manejar el cambio en el campo de entrada de archivo
+			$("#updatefile").on("change", function () {
+				var selectedFile = $(this).prop("files")[0];
+				if (selectedFile) {
+					// Mostrar el nombre del archivo seleccionado
+					$("#imageError").text(selectedFile.name);
+
+					// También puedes mostrar una vista previa de la imagen si es una imagen válida
+					if (selectedFile.type.startsWith("image/")) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$("#imagePreview").attr("src", e.target.result);
+						};
+						reader.readAsDataURL(selectedFile);
+					} else {
+						// Limpiar la vista previa si el archivo no es una imagen
+						$("#imagePreview").attr("src", "");
+					}
+				} else {
+					// Limpiar la vista si no se seleccionó ningún archivo
+					$("#imageError").text("");
+					$("#imagePreview").attr("src", "");
+				}
+			});
+		});
+	</script>
+
+
+	<script>
+		$(document).ready(function () {
+			$("#updateButton").on("click", function () {
+				console.log("Botón ACTUALIZAR hizo clic");
+
+				var isValid = true;
+
+				var nameEdit = document.getElementById('nameEdit');
+				var descriptionEdit = document.getElementById('descriptionEdit');
+				var priceEdit = document.getElementById('priceEdit');
+				var categoryEdit = document.getElementById('categoryEdit');
+
+				var nameErrorEdit = document.getElementById('nameErrorEdit');
+				var descriptionErrorEdit = document.getElementById('descriptionErrorEdit');
+				var priceErrorEdit = document.getElementById('priceErrorEdit');
+				var nameCategoryError = document.getElementById('nameCategoryError');
+
+				nameErrorEdit.textContent = '';
+				descriptionErrorEdit.textContent = '';
+				priceErrorEdit.textContent = '';
+				nameCategoryError.textContent = '';
+
+				//Name
+				if (nameEdit.value.trim() === "") {
+					nameErrorEdit.textContent = 'This field is required';
+					isValid = false;
+					event.preventDefault();
+				} else if (nameEdit.value.length > 100) {
+					nameErrorEdit.textContent = 'Name should be 100 characters or less';
+					isValid = false;
+					event.preventDefault();
+				} else if (!isNaN(nameEdit.value)) {
+					nameErrorEdit.textContent = 'Name should contain only letters';
+					isValid = false;
+					console.log(nameErrorEdit);
+					event.preventDefault();
+				} else {
+					nameErrorEdit.textContent = '';
+				}
+
+				//Description
+				if (descriptionEdit.value.trim() === "") {
+					descriptionErrorEdit.textContent = 'This field is required';
+					isValid = false;
+					event.preventDefault();
+				} else if (descriptionEdit.value.length > 255) {
+					descriptionErrorEdit.textContent = 'Description should be 255 characters or less';
+					isValid = false;
+					event.preventDefault();
+				} else if (!isNaN(descriptionEdit.value)) {
+					descriptionErrorEdit.textContent = 'Description should contain only letters';
+					isValid = false;
+					console.log(descriptionErrorEdit);
+				} else {
+					descriptionErrorEdit.textContent = '';
+				}
+
+				//Price
+				var priceValue = parseFloat(priceEdit.value);
+				if (isNaN(priceValue) || priceValue <= 0) {
+					isValid = false;
+					priceEdit.classList.add('error');
+					priceErrorEdit.textContent = 'Enter a valid price';
+					event.preventDefault();
+				} else {
+					priceErrorEdit.textContent = '';
+				}
+
+				//Category
+				if (categoryEdit.value === "-1") {
+					nameCategoryError.textContent = 'Select a valid category';
+					isValid = false;
+					event.preventDefault();
+				} else {
+					nameCategoryError.textContent = '';
+				}
+
+				if (isValid) {
+
+					var formData = new FormData();
+
+					formData.append("idproduct", $("#productIdEdit").val());
+					formData.append("name", $("#nameEdit").val());
+					formData.append("description", $("#descriptionEdit").val());
+					formData.append("price", $("#priceEdit").val());
+					formData.append("idcategory", $("#categoryEdit").val());
+					formData.append("idemployee", $("#employeeIdEdit").val());
+
+					var imageFile = $("#updatefile")[0].files[0];
+					if (imageFile) {
+						formData.append("updatefile", imageFile);
+					}
+
+					console.log("Datos recopilados:", formData);
+
+					$.ajax({
+						type: 'PUT',
+						url: '/maintenance',
+						data: formData,
+						contentType: false,
+						processData: false,
+						success: function (response) {
+							if (response === "success") {
+								console.log("Respuesta del servidor: Producto actualizado con éxito");
+								alert("Producto actualizado con éxito");
+								$("#id_div_modal_actualiza").modal("hide");
+								location.reload();
+								console.log("Desde consola datos actualizados");
+							} else {
+								alert("Error al actualizar el producto: " + response);
+								console.log("Error al actualizar:", response);
+							}
+						},
+						error: function (error) {
+							alert("Error al actualizar el producto: " + error.responseText);
+							console.log("Error al actualizar:", error.responseText);
+						}
+					});
+				}
+			});
+		});
+
+	</script>
+
+	<script>
+		function loadProductData(productId) {
+			$.ajax({
+				type: 'GET',
+				url: '/search/' + productId,
+				success: function (data) {
+					console.log("Datos recibidos:", data);
+
+					$('#id_div_modal_actualiza').on('shown.bs.modal', function () {
+						$('#productIdEdit').val(data.idproduct);
+						$('#employeeIdEdit').val(data.idemployee);
+						$('#nameEdit').val(data.name);
+						$('#descriptionEdit').val(data.description);
+						$('#priceEdit').val(data.price);
+						$('#categoryEdit').val(data.idcategory);
+						$('#imagePreview').attr('src', '/uploads/' + data.image);
+
+						$('#nameEdit').on('input', function () {
+							data.name = $(this).val();
+						});
+					});
+				},
+				error: function () {
+					console.log("Error al obtener los datos");
+				}
+			});
+		}
+
+	</script>
+
+
+</body>
+
+</html>

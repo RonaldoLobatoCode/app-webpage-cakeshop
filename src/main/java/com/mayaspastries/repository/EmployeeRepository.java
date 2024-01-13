@@ -1,5 +1,13 @@
 package com.mayaspastries.repository;
 
-public interface EmployeeRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mayaspastries.entities.Employee;
+
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+    Employee findByIduser(int idUser);
 
 }
+

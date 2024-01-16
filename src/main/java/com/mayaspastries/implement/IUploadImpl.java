@@ -74,6 +74,22 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public boolean deleteImageFromUploads(String imageName) {
 		// TODO Auto-generated method stub
+		try {
+			String uploadsDirectory = "uploads";
+			File file = new File(uploadsDirectory, imageName);
+			
+			if(file.exists()) {
+				if(file.delete()) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

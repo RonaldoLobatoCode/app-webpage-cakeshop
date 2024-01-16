@@ -1,5 +1,6 @@
 package com.mayaspastries.implement;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -44,6 +45,11 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public boolean delete(String filename) {
 		// TODO Auto-generated method stub
+		Path rootPath = getPath(filename);
+		File file = rootPath.toFile();
+		if(file.exists() && file.canExecute()) {
+			return true;
+		}
 		return false;
 	}
 

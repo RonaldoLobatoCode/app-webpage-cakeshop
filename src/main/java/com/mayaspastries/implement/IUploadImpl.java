@@ -15,12 +15,19 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mayaspastries.entities.Product;
+import com.mayaspastries.repository.ProductRepository;
 import com.mayaspastries.service.IUploadFileService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class IUploadImpl implements IUploadFileService{
 
 	private final static String UPLOADS_FOLDER = "C:\\uploads";
+	
+	private ProductRepository repoProduct;
 	
 	@Override
 	public Resource load(String filename) throws MalformedURLException {
@@ -56,6 +63,11 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public String getImageNameById(int productId) {
 		// TODO Auto-generated method stub
+		Product product = repoProduct.findById(productId).orElse(null);
+		
+		if(product != null) {
+			return product.getImage();
+		}
 		return null;
 	}
 

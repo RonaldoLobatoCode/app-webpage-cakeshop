@@ -96,7 +96,18 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public String saveImageToUploads(MultipartFile imageFile) throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			String uniqueFileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
+			
+			Path targetLocation = Paths.get(UPLOADS_FOLDER).toAbsolutePath().resolve(uniqueFileName);
+			
+			Files.copy(imageFile.getInputStream(), targetLocation);
+			
+			return uniqueFileName;
+			
+		} catch (IOException e) {
+			throw new RuntimeException("Error al guardar el archivo en la carpeta uplodas", e);
+		}
 	}
 	
 	public Path getPath(String filename) {

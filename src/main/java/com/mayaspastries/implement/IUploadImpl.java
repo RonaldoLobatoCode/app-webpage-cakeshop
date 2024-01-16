@@ -2,8 +2,10 @@ package com.mayaspastries.implement;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import javax.management.RuntimeErrorException;
 
@@ -33,7 +35,10 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public String copy(MultipartFile file) throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+		Path rooPath = getPath(uniqueFileName);
+		Files.copy(file.getInputStream(), rooPath);
+		return uniqueFileName;
 	}
 
 	@Override

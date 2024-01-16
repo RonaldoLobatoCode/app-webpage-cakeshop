@@ -2,8 +2,13 @@ package com.mayaspastries.implement;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +22,12 @@ public class IUploadImpl implements IUploadFileService{
 	@Override
 	public Resource load(String filename) throws MalformedURLException {
 		// TODO Auto-generated method stub
-		return null;
+		Path path = getPath(filename);
+		Resource resource = new UrlResource(path.toUri());
+		if(!resource.exists() || !resource.isReadable()) {
+			throw new RuntimeException("Error in path : " + path.toString());
+		}
+		return resource;
 	}
 
 	@Override
@@ -49,5 +59,8 @@ public class IUploadImpl implements IUploadFileService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public Path getPath(String filename) {
+        return Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
+    }
 }

@@ -50,6 +50,12 @@ public class ProductImpl implements ProductService{
 	}
 
 	@Override
+	public void deleteProduct(int idproduct) {
+		// TODO Auto-generated method stub
+		repoProduct.deleteById(idproduct);
+	}
+
+	@Override
 	public Optional<Product> getProductForId(Integer productId) {
 		// TODO Auto-generated method stub
 		return repoProduct.findById(productId);
@@ -61,12 +67,6 @@ public class ProductImpl implements ProductService{
 		return repoProduct.save(objProduct);
 	}
 
-	@Override
-	public void deleteProduct(int idproduct) {
-		// TODO Auto-generated method stub
-		repoProduct.deleteById(idproduct);
-	}
-	
 	@Override
 	public List<Product> getRandomProducts(int numberOfProducts) {
 		List<Integer> allProductIds = getAllProductIds();
@@ -92,8 +92,8 @@ public class ProductImpl implements ProductService{
 		return allProductIds;
 	}
 
-	 private Product getProductByIdRamdom(int productId) {
-	        // Obtén un producto por su ID.
-	        return entityManager.find(Product.class, productId);
-	    }
+	private Product getProductByIdRamdom(int productId) {
+		// Obtén un producto por su ID.
+		return entityManager.find(Product.class, productId);
+	}
 }

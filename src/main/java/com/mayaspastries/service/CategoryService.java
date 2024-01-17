@@ -18,5 +18,5 @@ public interface CategoryService {
 
     public boolean hasProduct(Integer idcategory);
 
-    public void deleteCategort(int idcategory);
+    public void deleteCategory(int idcategory);
 }

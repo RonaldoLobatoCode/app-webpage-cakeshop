@@ -1,5 +1,8 @@
 package com.mayaspastries.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -63,5 +66,23 @@ public class CategoryController {
     public ResponseEntity<String> updateCategory(@ModelAttribute("category") Category category) {
         serviceCategory.updateCategory(category);
         return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/category/{idcategory}")
+    public ResponseEntity<Map<String, Boolean>> deleteCategory(@PathVariable("idcategory") Integer idcategory) {
+        boolean hasProduct = serviceCategory.hasProduct(idcategory);
+        Map<String, Boolean> response = new HashMap<>();
+
+        if (hasProduct) {
+            response.put("canDelete", false);
+            System.out.println("No se elimina");
+
+        } else {
+            serviceCategory.deleteCategory(idcategory);
+            response.put("canDelete", true);
+            System.out.println("Se elimina..");
+        }
+
+        return ResponseEntity.ok(response);
     }
 }

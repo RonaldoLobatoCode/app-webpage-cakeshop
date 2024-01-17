@@ -1,13 +1,16 @@
 package com.mayaspastries.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mayaspastries.entities.Category;
 import com.mayaspastries.service.CategoryService;
 import com.mayaspastries.service.EmployeeService;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
@@ -38,5 +41,11 @@ public class CategoryController {
             }
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/search/category/{id}")
+    public ResponseEntity<Category> searchIdCategory(@PathVariable("id") Integer id, Model model) {
+        Category category = serviceCategory.getCategoryById(id);
+        return ResponseEntity.ok(category);
     }
 }

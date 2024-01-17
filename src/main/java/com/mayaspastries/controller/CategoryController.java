@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mayaspastries.entities.Category;
 import com.mayaspastries.service.CategoryService;
@@ -84,5 +85,13 @@ public class CategoryController {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/filter/category")
+    public String filterCategory(@RequestParam("searchWord") String searchWord, Model model) {
+        model.addAttribute("searchWord", searchWord);
+        model.addAttribute("listCategory", serviceCategory.findCategoryByName(searchWord));
+        model.addAttribute("category", new Category());
+        return "maintenance-category";
     }
 }

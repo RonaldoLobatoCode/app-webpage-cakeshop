@@ -2,51 +2,65 @@ package com.mayaspastries.implement;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.mayaspastries.entities.Category;
+import com.mayaspastries.entities.Product;
+import com.mayaspastries.repository.CategoryRepository;
+import com.mayaspastries.repository.ProductRepository;
 import com.mayaspastries.service.CategoryService;
 
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
 public class CategoryImpl implements CategoryService {
+
+    private CategoryRepository repoCategory;
+
+    private ProductRepository repoProduct;
 
     @Override
     public List<Category> listCategory() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listCategory'");
+        return repoCategory.findAll();
     }
 
     @Override
     public Category addCategory(Category objCategory) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addCategory'");
+        return repoCategory.save(objCategory);
     }
 
     @Override
     public Category getCategoryById(int idcategory) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCategoryById'");
+        return repoCategory.findById(idcategory).orElse(null);
     }
 
     @Override
     public Category updateCategory(Category objCategory) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCategory'");
+        return repoCategory.save(objCategory);
     }
 
     @Override
     public List<Category> findCategoryByName(String searchWord) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findCategoryByName'");
+        return repoCategory.findAll(searchWord);
     }
 
     @Override
     public boolean hasProduct(Integer idcategory) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hasProduct'");
+        List<Product> products = repoProduct.findByidcategory(idcategory);
+        return !products.isEmpty();
     }
 
     @Override
     public void deleteCategort(int idcategory) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCategort'");
+        repoCategory.deleteById(idcategory);
     }
 
 }

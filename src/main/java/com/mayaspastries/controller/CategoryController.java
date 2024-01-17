@@ -4,7 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mayaspastries.entities.Category;
 import com.mayaspastries.service.CategoryService;
@@ -47,5 +49,11 @@ public class CategoryController {
     public ResponseEntity<Category> searchIdCategory(@PathVariable("id") Integer id, Model model) {
         Category category = serviceCategory.getCategoryById(id);
         return ResponseEntity.ok(category);
+    }
+
+    @PostMapping("/mayas/register/category")
+    public String addCategory(@ModelAttribute("category") Category category) {
+        serviceCategory.addCategory(category);
+        return "redirect:/maintenance/category";
     }
 }

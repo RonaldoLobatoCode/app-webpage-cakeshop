@@ -1,5 +1,5 @@
 package com.mayaspastries.implement;
 
-public class CategoryImpl {
+public class CategoryImpl{
 
 }

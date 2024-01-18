@@ -1,6 +1,7 @@
 package com.mayaspastries.controller;
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
@@ -218,5 +219,18 @@ public class ProductController {
         }
 
         return "redirect:/maintenance";
+    }
+
+    @GetMapping("/")
+    public String getMenuPage(Model model) {
+        List<Product> randomProducts = serviceProduct.getRandomProducts(5);
+
+        System.out.println("Haciendo la prueba");
+        model.addAttribute("randomProducts", randomProducts);
+
+        System.out.println("Haciendo la prueba");
+        System.out.println("Random Products: " + randomProducts);
+
+        return "index";
     }
 }

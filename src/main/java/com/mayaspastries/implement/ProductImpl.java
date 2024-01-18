@@ -18,13 +18,13 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ProductImpl implements ProductService{
+public class ProductImpl implements ProductService {
 
 	private ProductRepository repoProduct;
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
 	public List<Product> listProduct() {
 		// TODO Auto-generated method stub

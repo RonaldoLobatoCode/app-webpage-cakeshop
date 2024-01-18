@@ -1,5 +1,7 @@
 package com.mayaspastries.controller;
 
+import java.io.File;
+
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
@@ -196,5 +198,25 @@ public class ProductController {
             System.out.println("Actualización del producto completada");
             return new ResponseEntity<>("success", HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/delete/{idproduct}")
+    public String deleteProduct(@PathVariable("idproduct") Integer idproduct, Model model) {
+
+        Product product = serviceProduct.getProductById(idproduct);
+        String imageName = product.getImage();
+
+        serviceProduct.deleteProduct(idproduct);
+
+        if (imageName != null) {
+            String imagePath = "uploads/" + imageName;
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                imageFile.delete();
+            }
+        }
+
+        return "redirect:/maintenance";
     }
 }

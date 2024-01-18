@@ -1,8 +1,13 @@
 package com.mayaspastries.controller;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mayaspastries.entities.Product;
 import com.mayaspastries.service.CategoryService;
@@ -42,6 +47,20 @@ public class ProductController {
             }
         }
         return "redirect:/login";
+
+    }
+
+    @GetMapping(value = "/uploads/{filename}")
+    public ResponseEntity<Resource> goImage(@PathVariable String filename) {
+        Resource resource = null;
+        try {
+            resource = uploadFileService.load(filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 
     }
 

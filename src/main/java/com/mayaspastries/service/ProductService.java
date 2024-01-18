@@ -13,7 +13,7 @@ public interface ProductService {
 	
 	public Product getProductById(int productId);
 	
-	public List<Product> findProductByName(String searchWord);
+	public List<Product> findProductsByName(String searchWord);
 	
 	public Optional<Product> getProductForId(Integer productId);
 	

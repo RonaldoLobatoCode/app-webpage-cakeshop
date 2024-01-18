@@ -138,4 +138,15 @@ public class ProductController {
         }
         return "letter";
     }
+
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Product> searchIdProduct(@PathVariable("id") Integer id, Model model) {
+
+        Product product = serviceProduct.getProductById(id);
+
+        String currenImageInfo = product.getImage();
+        model.addAttribute("currentImageInfo", currenImageInfo);
+        System.out.println(currenImageInfo);
+        return ResponseEntity.ok(product);
+    }
 }

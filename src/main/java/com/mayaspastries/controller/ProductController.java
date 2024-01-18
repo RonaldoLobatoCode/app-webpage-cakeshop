@@ -225,12 +225,20 @@ public class ProductController {
     public String getMenuPage(Model model) {
         List<Product> randomProducts = serviceProduct.getRandomProducts(5);
 
-        System.out.println("Haciendo la prueba");
         model.addAttribute("randomProducts", randomProducts);
 
-        System.out.println("Haciendo la prueba");
-        System.out.println("Random Products: " + randomProducts);
-
         return "index";
+    }
+
+    @GetMapping("/detail/{idproduct}")
+    public String getMenuPageDetail(@PathVariable Integer idproduct, Model model) {
+        Product product = serviceProduct.getProductById(idproduct);
+
+        model.addAttribute("product", product);
+
+        List<Product> randomProducts = serviceProduct.getRandomProducts(3);
+        model.addAttribute("randomProductsDetail", randomProducts);
+
+        return "detail";
     }
 }

@@ -3,6 +3,7 @@ package com.mayaspastries.controller;
 import org.springframework.core.io.Resource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -148,5 +150,51 @@ public class ProductController {
         model.addAttribute("currentImageInfo", currenImageInfo);
         System.out.println(currenImageInfo);
         return ResponseEntity.ok(product);
+    }
+
+    @PutMapping("/maintenance")
+    public ResponseEntity<String> updateProduct(@Validated @ModelAttribute("product") Product updatedProduct,
+            BindingResult result, Model model,
+            @RequestParam(value = "updatefile", required = false) MultipartFile image,
+            RedirectAttributes flash, SessionStatus status) throws Exception {
+        if (result.hasErrors()) {
+            System.out.println("Errores de validación: " + result.getAllErrors());
+            return new ResponseEntity<>("Error de validación", HttpStatus.BAD_REQUEST);
+        } else {
+            System.out.println("Producto actualizado con éxito");
+            Product existingProduct = serviceProduct.getProductById(updatedProduct.getIdproduct());
+            System.out.println("Obteniendo el ID " + existingProduct);
+
+            if (existingProduct == null) {
+                System.out.println("No se encontró el producto existente");
+                return new ResponseEntity<>("No se encontró el producto existente", HttpStatus.NOT_FOUND);
+            }
+
+            String previosImageFileName = existingProduct.getImage();
+
+            if (image != null && !image.isEmpty()) {
+                String uniqueFileName = uploadFileService.copy(image);
+
+                String newImageFileName = uniqueFileName;
+
+                if (!newImageFileName.equals(previosImageFileName)) {
+                    File previosImageFile = new File("uploads/" + previosImageFileName);
+                    if (previosImageFile.exists()) {
+                        previosImageFile.delete();
+                    }
+                }
+                existingProduct.setImage(uniqueFileName);
+            }
+            existingProduct.setName(updatedProduct.getName());
+            existingProduct.setDescription(updatedProduct.getDescription());
+            existingProduct.setPrice(updatedProduct.getPrice());
+            existingProduct.setIdcategory(updatedProduct.getIdcategory());
+
+            serviceProduct.updateProduct(existingProduct);
+            status.setComplete();
+
+            System.out.println("Actualización del producto completada");
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        }
     }
 }

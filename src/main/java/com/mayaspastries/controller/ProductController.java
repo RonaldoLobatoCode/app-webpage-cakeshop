@@ -123,4 +123,19 @@ public class ProductController {
 
         return "maintenance-product";
     }
+
+    @GetMapping("/letter")
+    public String showLetterPage(Model model, @RequestParam(value = "searchWord", required = false) String searchWord) {
+        model.addAttribute("product", new Product());
+        model.addAttribute("listCategory", serviceCategory.listCategory());
+
+        if (searchWord != null && !searchWord.isEmpty()) {
+            model.addAttribute("searchWord", searchWord);
+            model.addAttribute("listProduct", serviceProduct.findProductsByName(searchWord));
+        } else {
+            model.addAttribute("searchWord", "");
+            model.addAttribute("listProduct", serviceProduct.listProduct());
+        }
+        return "letter";
+    }
 }

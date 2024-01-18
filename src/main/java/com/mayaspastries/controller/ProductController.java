@@ -99,4 +99,28 @@ public class ProductController {
         return "redirect:/maintenance";
     }
 
+    @GetMapping("/filter")
+    public String filterProduct(@Param("searchWord") String searchWord, @ModelAttribute Product product, Model model,
+            HttpServletRequest request, HttpSession session) {
+
+        Integer currentUserId = (Integer) session.getAttribute("userId");
+
+        if (currentUserId != null) {
+
+            int userId = currentUserId;
+
+            Integer employeeId = serviceEmployee.getEmployeeIdByUsername(userId);
+
+            model.addAttribute("searchWord", searchWord);
+            model.addAttribute("product", new Product());
+            model.addAttribute("listProduct", serviceProduct.findProductsByName(searchWord));
+            model.addAttribute("listCategory", serviceCategory.listCategory());
+            model.addAttribute("employeeId", employeeId);
+
+            return "maintenance-product";
+
+        }
+
+        return "maintenance-product";
+    }
 }

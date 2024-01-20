@@ -1,6 +1,6 @@
 # Editor.md
 
-![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqzSIRJwwkT8tMqg9LDQyOvNNUeRUnxvNihmugWwArtOsOOxPYthV04jmSe9f9ctAYkeQ&usqp=CAU)
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqzSIRJwwkT8tMqg9LDQyOvNNUeRUnxvNihmugWwArtOsOOxPYthV04jmSe9f9ctAYkeQ&usqp=CAU" alt="Mayas Pastries" style="width:100%;">
 # Mayas Pastries
 
 

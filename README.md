@@ -1,3 +1,10 @@
+# Editor.md
+
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqzSIRJwwkT8tMqg9LDQyOvNNUeRUnxvNihmugWwArtOsOOxPYthV04jmSe9f9ctAYkeQ&usqp=CAU)
+# Mayas Pastries
+
+
+
 Maya's Pastries
 Maya's Pastries es una aplicación web desarrollada con el framework Spring MVC y Maven, diseñada para gestionar el catálogo y pedidos de una pastelería en línea. La aplicación utiliza una base de datos MySQL para almacenar información crucial, como productos, clientes y pedidos.
 

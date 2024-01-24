@@ -7,22 +7,13 @@
 - Java 17
 - Maven
 - MySQL
-
+  
 ### Configuración del Entorno
 
     
 	git clone https://github.com/RonaldoLobatoCode/app-webpage-cakeshop.git
-    
 
-#### Dependencias del Proyecto
-- Spring Boot
-- Spring MVC
-- Spring JPA
-- Spring DevTools
-- Thymeleaf
-- Lombok
-- MySQL Connector
-
-#### Configuración
+ 
+### Configuración 
 Asegúrate de configurar los siguientes archivos o propiedades:
 - . application.properties o application.yml para configuraciones específicas como la conexión a la base de datos MySQL, puertos, etc.
